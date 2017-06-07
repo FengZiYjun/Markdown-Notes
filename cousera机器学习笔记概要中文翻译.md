@@ -372,3 +372,48 @@ $$J(\theta) = -{1\over m}\sum_{i=1}^m\sum_{k=1}^K[y_k^{(i)}log(h_{\theta}(x^{(i)
 - $D_{i,j}^{(l)}:={1\over m}(\delta_{i,j}^{(l)}+\lambda\theta_{i,j}^{(l)})$ if j!=0
 - $D_{i,j}^{(l)}:={1\over m}\delta_{i,j}^{(l)}$ if j=0
 
+说明：
+1. $\delta_j^{(l)}$代表第l层第j个节点的“误差”
+2. $\Delta$作为一个“误差累加器”，累计所有层误差以激活为权重的和
+3. $D_{i,j}^{(l)}$是把$\Delta$经过正则化、取平均后的结果，表示损失函数对$\theta$的偏导数
+$$D_{i,j}^{(l)} = {\partial J(\theta) \over \partial \theta_{i,j}^{(l)}} = {1\over m}\sum_{t=1}^m a_j^{(t)(l)}\delta_{i}^{(t)(l+1)}$$
+
+### 直觉理解
+当输出只有一个节点时，第t个样本的损失是
+$$cost(t) = y^{(t)}log(h_{\theta}(x^{(t)}))+(1-y^{(t)})log(1-h_{\theta}(x^{(t)})) \\
+\approx (h_{\theta}(x^{(t)})-y^{(t)})^2$$
+$$\delta_j^{(l)} = {\partial\over \partial z_j^{(l)}}cost(t)$$
+
+### 展开参数
+把多个矩阵合成一个矩阵，为了方便调用优化函数
+得到结果后展开
+
+### 检查梯度
+使用数值方法求一个梯度
+$${\partial\over \partial \theta_j}J(\theta) \approx {J(\theta_1,...,\theta_j+\epsilon,...,\theta_n)-J(\theta_1,...,\theta_j-\epsilon,...,\theta_n) \over 2\epsilon}$$
+这招用来验算，很慢
+
+### 随机初始化
+如果初始权重全为零，那么所有节点的值将会是相同的。
+所以需要随机初始化。
+一种初始化方法是：
+$$\epsilon = {\sqrt{6} \over \sqrt{输出节点数+输出节点数}} \\
+\theta^{(l)}=2\epsilon * (维度为输出节点数\times (输入节点数+1)的0-1随机矩阵) - \epsilon$$
+
+### 设计与训练
+首先选择一个网络构架
+
+- 输入节点个数 = 训练样本特征维数
+- 输出节点个数 = 分类数
+- 每个隐藏层的节点个数： 越多越好，但要平衡计算成本
+- 隐藏层个数： 默认1个，多于1个时每层节点个数相同
+
+训练神经网络
+1. 随机初始化权重
+2. 通过forword propagation求得假设函数
+3. 求损失函数
+4. 通过back propagation求偏导
+5. 使用梯度验证确保back propagation有效
+6. 使用梯度下降或者内置优化函数通过权重最小化损失函数
+
+forword propagation和back propagation在遍历样本的循环中进行。
