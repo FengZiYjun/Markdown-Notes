@@ -1,7 +1,12 @@
 ﻿# ML algorithm and practice(Basic)
-## 1.  对象 维度 矢量化编程
+标签： machine_learning
+---
+
+## 1.  矢量编程基础
 ### 矩阵
 - 对象是矩阵的一行，特征是矩阵的一列
+例如：
+
 - 词袋列表：若干文本提取出不同的词组成的集合
   词向量空间：文本-词袋构成的整数值矩阵
 - 分类/聚类 看作是根据对象特征的相似性和差异性，对矩阵空间的划分
@@ -15,18 +20,18 @@
 ### 矢量化编程
 基于矩阵的基本运算
 MATLAB 和python的矩阵运算调用C函数完成  数值运算  并行运算
-图形处理器GPU graphic computing unit
+图形处理器GPU (graphic computing unit)
 
 ### numpy 矩阵运算
 初始化
 ```
 # initialize a 3*4 matrix
 import numpy as np
-allZero = np.zeros([3,4])
-allOne = np.ones([3,4])
-myrandom = np.random.rand(3,4)
-myeye = np.eye(3) # 3*3 unit matrix
-# use 2-D array
+allZero = np.zeros([3,4])  # 全零矩阵
+allOne = np.ones([3,4])   # 全一矩阵
+myrandom = np.random.rand(3,4)   # 随机矩阵
+myeye = np.eye(3) # 3*3 单位矩阵
+# 用二维向量初始化矩阵
 myMatrix = mat([[1,2],[2,4],[4,8]])
 ```
 元素运算
@@ -58,12 +63,16 @@ matrix.transpose()
 ```
 # show the line and column number
 [m,n] = shape(matrix)
+
 # slice by line 
 line = matrix[0]
+
 # slice by column
 col = matrix.T[0]
+
 # copy method
 copied = matrix.copy()
+
 # compare each pair of elements at the same position
 # return a bool matrix
 matrixA > matrixB
@@ -82,16 +91,16 @@ s = linalg.solve(A,B)
 ```
 
 ## 2. 数学基础
-现代数学三大根基：概率论（事物可能会在怎样）数值分析（怎样变化）线性代数（不同观察维度）
+现代数学三大根基：概率论（事物可能会在怎样）、数值分析（怎样变化）、线性代数（不同观察维度）
 
-2.1 相似性的度量similarity measurement（向量的距离）
+###2.1 相似性的度量 similarity measurement（向量的距离）
 
-**Euclidean范数**
+- **Euclidean范数**
 各元素平方和的开方
 $$X = \sqrt{\sum_{i=1}^nx_i^2}$$
 `linalg.norm(matrixA)`
 
-**Minkowski Distance**
+- **Minkowski Distance**
 $$d=\sqrt[p]{\sum_{i=1}^n |a_i-b_i|^p}$$
 when p = 1, d is **Manhattan Distance** (city block distance)
 `sum(abs(vectorA-vectorB))`
@@ -103,11 +112,11 @@ when p -> infinite, d is **Chebyshev Distance**
 the same as $$d=max_{i=1}^n(|a_i-b_i|)$$
 `abs(vectorA-vectorB).max()`
 
-**Consine**
+- **Consine**
 describe the difference of direction of two vectors
 `cosV12 = dot(vectorA,vectorB)/(linalg.norm(vectorA)*linalg.norm(vectorB))`
 
-**Hamming Distance** 
+- **Hamming Distance** 
 between two strings: the minimum times of replacement to transform one into the other
 ```
 tmp = nonzero(vectorA-vecotrB)
@@ -115,9 +124,9 @@ tmp2 = shape(tmp) # return [line,column]
 tmp2[1]
 ```
 
-**Jaccard similarity coefficient**
+- **Jaccard similarity coefficient**
 $$J(A,B)={|A\cap B|\over|A\cup B|}$$
-**Jaccard Distance**
+- **Jaccard Distance**
 $$J_d = 1 - J(A,B)$$ 
 ```
 from numpy import *
@@ -129,12 +138,13 @@ dist.pdist(matV,'jaccard')
 还有很多距离。。
 
 ### 2.2概率论
-－　样本：矩阵对象
+
+- 样本：矩阵对象
 样本空间：全体对象
 随机事件：某个对象具有某属性
 随机变量：某个属性
 
-－　讨论某个对象属于某个类别的可能性
+- 讨论某个对象属于某个类别的可能性
 
 **贝叶斯公式**
 $$P(B|A)P(A) = P(A|B)P(B)$$
