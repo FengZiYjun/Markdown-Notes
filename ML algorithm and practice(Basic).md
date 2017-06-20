@@ -189,7 +189,7 @@ tp = vectorA-vectorB
 mditance = sqrt(dot(dot(tp,covinv),tp.T)) # ???
 ```
 
-### 2.3 空间变换
+### 2.3 线性空间变换
 向量乘矩阵：向量从一个线性空间变换到另一个线性空间的过程
 矩阵乘矩阵：向量组的空间变换，维度对齐
 一组特征向量：变换过程只发生伸缩、不发生旋转
@@ -203,14 +203,16 @@ matrix = evec*(eval*eye(m))*linalg.inv(evec)
 
 ### 2.4 数据归一化
 变成（0,1）之间的小数，或者有量纲变成无量纲
+
 - 标准化欧式距离：各个分量都标准化到均值方差相等
 - 以方差的倒数为权重，**加权欧氏距离**
 $$d = \sqrt{\sum_{k=1}^n({X_{1k}-X_{2k} \over S_k})^2}$$
 
 ### 2.5数据处理与可视化
 - 读取
+从文件读取数据形成矩阵
 ```
-def fileToMatrix(path,delimiter):
+def fileToMatrix(path,delimiter): # 'path' is the path of a file
     list = []
     fp = open(path,"rb")
     content = fp.read()
@@ -245,7 +247,7 @@ python去除HTML标签使用lxml库，使用海量网络文本转换
 
 ### 3.2 中文分词 Chinese Word Segmentation
 词没有形式上的分界符    
-NLP的核心问题
+NLP的核心问题?
 
 中文分词算法： 基于概率图模型的条件随机场(CRF)——Lafferty
 
@@ -258,7 +260,7 @@ jieba分词系统 使用CRF算法和python语言
 seg_list = jieba.cut("中文文本串",cut_all=False)
 # 全切分
 seg_list = jieba.cut("中文文本串",cut_all=False)
-# 搜索引擎切分
+# 搜索引擎粒度切分
 seg_list = jieba.cut_for_search("中文文本串")
 
 print "/".join(seg_list)
@@ -318,6 +320,7 @@ for mydir in catelist:
 ```
 
 - 转化为Bunch类储存
+os, pickle, bunch 的使用
 ```
 import sys
 import os
