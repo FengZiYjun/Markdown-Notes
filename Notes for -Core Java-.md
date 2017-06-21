@@ -100,13 +100,23 @@ returns a new String by replacing all substring `oldString` with `newString`.
 `String toUpperCase()`
  - `String trim()` eliminate all leading and trailing spaces 
   
-      
+- Building Strings 
+use `StringBuilder` class
+```
+StringBuilder builder = new StringBuilder();
+builder.append("abc");
+String str = builder.toString();
+```
+
 - A few things about Java String:
 1. Strings are immutable
 You cannot change a character in an existing string. 
 An advantage of immutable strings: strings can be shared. 
 2. Java String is analogous to a `char*` pointer rather than `char[]` in C programming and similar to `string` objects in C++ programming, whose memory management is performed by constructors, assignment operators and destructors. But C++ strings are mutable with every char inside modifiable. 
 Java does automatic garbage collection. 
+
+
+### Input & Output
 
  
 
