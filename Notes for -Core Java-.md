@@ -118,5 +118,53 @@ Java does automatic garbage collection.
 
 ### Input & Output
 
- 
+- Reading input 
+1. construct a `scanner` that is attached to System.in
+`Scanner in = new Scanner(System.in);`
+2. To read a line, use nextline() method.
+`String line = in.nextline()`
+To read a word, use `next()`
+To read a integer, use `nextIn()`
+`nextDouble()` etc.
+`boolean hasNext()`
+`boolean hasNextInt()` 
 
+To read a password, there is a little different. 
+```
+Console cons = System.console();  // a console object for interaction
+String name = cons.readline("User name: ");
+char[] password = cons.readPassword("Password: ");
+// for security reason, returns an array rather than a string. 
+```
+
+- Formatting output
+`System.out.print()`
+Java SE 5.0 brings this from the C library: 
+`System.out.printf("%d, %.5f", age, salary);`
+Similar use in constructing a String: 
+`String str = String.format("%d, %.5f", age, salary);`
+
+ - conversion characters
+ mostly the same as C
+`printf("%tc", new Date());` There are many different formats to print a date. 
+ - flags
+1. The flag `$` is used to specify the index(start from 1, not 0) of the argument to be formatted. 
+`printf("%2$d, %1$tc, %2$f", date, salary);` 
+print the salary in decimal format and then in floating-point format. print the date in time format. 
+2. The flag `<` is used to indicate the same argument as the previous. 
+`printf("%ty, %<tm, %<td", new Date());`
+
+- File Input & Output
+ - `Scanner in = new Scanner(Paths.get("myfile.txt"));`
+Do not directly put a String as Scanner's parameter.
+The file should be located in the relative directory of where JVM starts. To see it, use `System.getProperty(user.dir)`. Otherwise, use an absolute directory like `C:\\User\\lenovo`.
+
+ - `PrintWriter out = new PrintWriter("myfile.txt");`
+If the file is not found, it will be created. 
+
+
+### Control Flow
+Mostly they are identical to C++ or C, but there are slight differences. 
+1. Java has no `goto`.
+2. Redefining a variable inside a nested block is not allowed. In C++, the inner one shadows the outer one. 
+3. 
