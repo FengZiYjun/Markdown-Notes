@@ -187,6 +187,7 @@ An array is a date structure that stores a collection of values of the same type
 
 - definition 
 `int[] a = new int[100];`
+which is similar to `int* a` in C++
  `int a[]` is also valid but not recommended.
 
 - initialization
@@ -202,5 +203,46 @@ An array with the length of zero is OK, but it is not null.
 sets the given variable to each element of the collection and excecute the statement. 
 The collection must be an array or objects of a class that implements the `Iterable` interface. 
 
+- String array in command-line parameters
+`public static void main(String[] args)` 
+receives an array of Strings specified in the command line. 
+call the program with the following command: 
+`java class_name -q one two`
+Then `-q`, `one` and `two` are args[0], args[1] and args[2] respectively. 
+
+
 - Methods
  - `toString()` returns a string like `"[1, 2, 3, 4]"`
+ - `Array.copyOf(type[], int length)` for deep copy
+`Array.copyOf(type[], int start, int end)`
+  Simply assigning the name of the old array to the new one is the shallow copy.
+ - `static void sort(type[] array)`
+ using QuickSort algorithm to sort
+ - `static int binarySearch(type[] a, int start, int end, type v)`
+ using binary search for sorted arrays. If found, index is returned. Otherwise, a negative r is returned and -r-1 is where it should be inserted. 
+ - `static void fill(type[] a, type v)`
+ set all element of the array to v
+ - `static boolean equals(type[] a, type[] b)` 
+ 
+- Multidimensional Array
+`double[][] a = new double[row][col];`
+`double[][] b = {{1,2},{3,4}};`
+access by two pairs of brackets [][]
+
+ - using for-each: 
+ ```
+for(double[] row: a){
+    for(double value: row)
+        ...
+}
+```
+ - To print as a String, use
+`Array.deepToString(b)`
+and outputs something like `"[[1,2],[3,4]]"`
+ - the same definition in C++ would be: 
+`double** a = new double*[row];`
+`for(int i=0;i<row;i++)`
+   ` a[i] = new double[col];`
+
+
+## Chapter Four: Objects and Classes
