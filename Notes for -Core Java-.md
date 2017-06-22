@@ -78,7 +78,7 @@ Even `"hello".equals(str)` is valid.
 `str.equalsIgnoreCase()`
 The == operator is only used to determine whether two strings are stored in the same locaion. 
 To test whether a string is `null`, use `if(str==null)`.
-Attention: `null` is different from empty string "" with the length of zero. 
+**Attention**: `null` is different from empty string "" with the length of zero. 
  - the `str.length()` method yields the number of code units(char) required to make up the string object. 
 To get the true length - the number of code pointers, use `str.codePointCount(0,str.lenth())`
  - `int codePointAt(int index)` return the code point that starts or ends at certian location. 
@@ -165,6 +165,42 @@ If the file is not found, it will be created.
 
 ### Control Flow
 Mostly they are identical to C++ or C, but there are slight differences. 
-1. Java has no `goto`.
+The same things: if, while, for, switch 
+
+1. Java has no `goto`, but a labeled `break`. 
+Put the label with a colon before the loop. After the break, the control flow will jump across the whole loop.
 2. Redefining a variable inside a nested block is not allowed. In C++, the inner one shadows the outer one. 
-3. 
+
+### Big Numbers
+in java.math package, use `BigInteger` and `BigDecimal`(floating-point). 
+
+- Methods: 
+`static BigInteger valueOf(long x)`
+`BigInteger add(BigInteger other)` the same as substract, multiply, divide, mod
+`int compareTo(BigInteger other)` do the substract to get the result
+
+**Attention**: Java does not allow programmable operator overloading. So you cannot use + or - to big numbers. 
+
+
+### Arrays
+An array is a date structure that stores a collection of values of the same type. You can access through index like `a[1]`. 
+
+- definition 
+`int[] a = new int[100];`
+ `int a[]` is also valid but not recommended.
+
+- initialization
+When you created an array of numbers/boolean/objects, all elements are initialized with 0/false/null.
+(null means it does not hold any object.)
+Different ways of initialization: 
+`int[] a = {1,2,3};`
+`int[] a = new int[]{1,2,3};`
+An array with the length of zero is OK, but it is not null.
+
+- for-each loop
+`for(type variable: collection) statement`
+sets the given variable to each element of the collection and excecute the statement. 
+The collection must be an array or objects of a class that implements the `Iterable` interface. 
+
+- Methods
+ - `toString()` returns a string like `"[1, 2, 3, 4]"`
