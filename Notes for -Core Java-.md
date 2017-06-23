@@ -246,3 +246,139 @@ and outputs something like `"[[1,2],[3,4]]"`
 
 
 ## Chapter Four: Objects and Classes
+### OOP
+Niklaus Wirth, the designer of Pascal language said, 
+> Algorithm + Data structure = Programs 
+
+This is the traditional understanding of programming, algorithm first and then data structure. But in object-oriented programming, data comes first, and then look at the algorithms.
+
+### Classes
+####Concepts:
+
+- class, object, instance, instance field, method, state
+- encapsulation, inheritance
+
+#### Objects
+Three things about an object: 
+
+- behavior: What can I do with the object? What are its methods? 
+- state: How it react when its methods invoked? 
+- identity: How to distinguish from others that have the same behavior and state? 
+
+#### indentify classes 
+Nouns are class. Verbs are methods. 
+More commonly, experience-based. 
+
+#### relationship between classes 
+
+- dependency - "uses-a"
+- aggregation - "has-a" 
+- inheritance - "is-a" 
+
+UML notation
+
+#### Object Variable
+An object variable does not contain an object. It only refers to an object. 
+
+Java object variables are analogous to C++ object pointers. 
+`Date birthday; // Java`
+ is the same as 
+`Date* birthday; // C++`
+
+accessor: get methods
+mutator: set methods
+
+### Customer-defined Classes
+One source file has only one public class and any number of nonpublic class. The name of the source file must match that of the public class. 
+The compiler will create `.class` file for each class. 
+
+Recommendation: make all instance field private, except for public final fields. 
+
+### Constructors
+A constructor 
+- has the same name as the class
+- can take any number of parameters
+- has no return value
+- is always called with `new` operator
+- A class can have more than one constructors.
+
+One of the common error for C++ programmer to code in Java is forgetting the `new` when creating an object. 
+
+Be careful not to introduce local variables inside constructors with the same name as instance fields. 
+
+### Implicit and explicit parameters
+Explicit parameters are explicitly listed in the declearation of the method, while the implicit one is the object of type that appears before the method name. 
+The key word `this`can be used to refer to the implicit parameter.
+
+Unlike C++, all methods of Java classes are defined inside the class. JVM decides which method is inline. 
+
+### Encapulation
+To get and set the value of an instance field, we need
+
+- a private data field
+- a public field accessor method 
+- a public field mutator method
+
+If an accessor wants to return references to mutable objects, it should be cloned first by `.clone()` method. Otherwise encapsulation will be breaken. 
+
+Access privileges are class-based, not instance-based. 
+Therefore, a method can access the private data of all objects of this class. 
+
+### Final 
+Final instance fields must be initialized when the object is constructed. Having set the final field value must be guaranteed after the end of every constructor. 
+
+If an object variable is declared as final, it does not mean that the object itself is constant but the object reference that stored in the variable does not change after construction. 
+
+### Static 
+If a field is defined `static`, then there is only one such field per class. 
+Static variables are rare. Static constants are more common. 
+And public constants are OK because no one can modify. 
+`public static final `
+
+Static methods ar eused in two situations: 
+
+- no need to access object state and all parameters are explicit.
+- only need to access the static field of a class
+
+### main 
+The main method does not operate on any object. Every class can have a main method. It is a handy trick for unit testing. 
+
+### Method parameters 
+Java always uses **call by value**.
+Methods get a copy of all parameter values passed to it and cannot modify the contents of any parameter variables. 
+
+A method
+
+- cannot modify a parameter of a primitive type(numbericc or boolean).
+- cannot make an object parameter refer to a new object
+- can change the state of an object parameter
+
+### Object Constructiion 
+Constructors can be overloaded.
+Default field initialization.
+There is a free no-argument constructor only when my class has no other constructors.
+
+- explicit field initilization 
+simply assign a value in the class definition
+This assignment will be carried out **before the constructor**. 
+
+- construtor calls constructor
+If the first statement of a constructor has the form of `this()`, it calls another constructor of the same class. 
+It never happends in C++.
+
+- initializatino blocks
+set assingment statements of fields inside a block
+denote `static` before the block if initialization is complex. 
+not common
+
+
+- order of initialization 
+1. All data fields are initialized to default values.
+2. Explicit field initializers and initialization blocks are excecuted in declaration order. 
+3. A constructor is executed. 
+
+### Destruction
+Java does automatic garbage collection. 
+A `finalize` method will be called before it. But do not rely on it for resource recycling. 
+Instead, supply a `close` method that does the cleanup. 
+
