@@ -382,3 +382,109 @@ Java does automatic garbage collection.
 A `finalize` method will be called before it. But do not rely on it for resource recycling. 
 Instead, supply a `close` method that does the cleanup. 
 
+### Package
+A package is a collection of classes. 
+The standard Java package is inside the java and javax package hierachies. 
+The main reason for using package is to guarantee the uniqueness of class names. Classes in different packages can have the same name.
+To guarantee the uniqueness of package name, use your domain name in reverse. 
+There is no relationship between nested packages. 
+
+### Importation 
+A class can use all classes from its own package and all public classes from other package. 
+To access classes from other packages, use its full name or use `import` for short. 
+
+The package and import in Java is analogous to the namespace and using in C++, rather than #include. 
+
+#### Static import
+`import static` + package_name
+To use the static methods andd fields of the class without prefix
+
+####　Addition of a class into a package 
+put the package statement at the top of the source file
+`package com.mycompany.corejave;`
+Otherwise, it will be in the default package. 
+
+To complile in the command line: 
+`javac com/mycompany/corejave/wedget.java`
+`java com.mycompany.corejave.wedget`
+The compiler looks for files, while the interpreter looks for classes, which accounts for the differ of their paths.
+
+If the feature(class, method, variable) does not have public or private modifier, it is package-visible. Classes from the same package can access it. This will break encapsulation. 
+
+
+package sealing: no further classes can be added. (Chapter 10)
+
+
+### class path 
+Class files can be stored in a JAR(Java Archive) file which contains multiple class files adn subdirectories in a compressed ZIP format. 
+
+
+To share classes among programmers, 
+1. Place class files inside a directory. 
+2. Place any JAR files inside another directory. 
+3. Set the *class path* - The base directory, the JAR file and the current directory (.)
+
+The compiler always looks for files in the current directory. But JVM only looks into the current directory if the "." is on the class path.
+
+ways for setting the class path: 
+1. using command `java -classpath` + the three paths
+2. set CLASSPATH environment variable in different shells
+Do not set CLASSPATH permanently!
+
+### Documentation Comments
+`javadoc` is a tool in JDK that generates HTML documentation from source files. 
+
+#### Insertion 
+`javadoc` looks for 
+
+- Packages 
+- Public classes and interfaces 
+- Pubic and protected fields.
+- Public and protected constructors and methods 
+
+The comment is placed above the feature it described.
+Start with `/**`, end with `*/`
+Tags start with `@`
+You can use HTML modifiers. 
+
+
+1. Class Comments
+must be placed after any import statements, before the class definition. 
+
+2. Method Comments 
+
+- `@param` variable_name discription
+- `@return` description
+- `@throws` class description
+
+3. Field Comments 
+Only need to document public field - static constants. 
+
+4. General Comments 
+
+- `@author` name
+- `@version` text 
+- `@see` reference
+
+5. Package Comments
+supply an HTML file named `package.html` and all text in its body will be extracted. 
+
+To generate documentation, run 
+`javadoc -d ` docDirectory nameOfPackage1 nameOfPackage2 ...
+
+### Class Design Hints
+
+- Always keep data private. 
+- Always initialize data. 
+- Do not use too many basic types in a class. (group them into a new class)
+- Not all fields need individual field accessors and mutators. 
+- Break up classes that have too many responsibilities.
+- Make the names of your classes and methods reflect their responsibilities. 
+
+
+
+
+
+
+
+
