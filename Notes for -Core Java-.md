@@ -484,6 +484,33 @@ To generate documentation, run
 
 
 
+## Chapter 5: Inheritance 
+
+### Superclasses and subclasses
+
+- using the key word `extends` to inherite: 
+`class SubClass extends SuperClass{ ... }`
+All inhetitance in Java is public inheritance. 
+Subclass has no direct access to the private field of the superclass. 
+
+- A subclass can define method that overrides the same one in the superclass. 
+To call the superclass method from the subclass, use `super.`method_name()
+
+- To call the superclass constructor from the subclass constructor: `super(`*parameter list* `);`
+
+In C++, we use `class derived: public base{ ... }` to inheritate, `base::method()` to call base methods, `Derived(init_list): Base(init_list){ ... }` to construct the part of the superclass.
+
+**Polymorphism**: An object variable can refer to multiple actual types.
+**Dynamic binding**: Automatically select the appropriate method at runtime. 
+
+Dynamic binding is default in Java. You don't have to declare `virtual` as C++. 
+
+Java does not support multiple inheritance. Use interface instead. 
+
+
+
+
+
 
 
 
