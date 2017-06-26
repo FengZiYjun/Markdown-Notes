@@ -230,7 +230,7 @@ Then `-q`, `one` and `two` are args[0], args[1] and args[2] respectively.
 access by two pairs of brackets [][]
 
  - using for-each: 
- ```
+```
 for(double[] row: a){
     for(double value: row)
         ...
@@ -507,11 +507,96 @@ Dynamic binding is default in Java. You don't have to declare `virtual` as C++.
 
 Java does not support multiple inheritance. Use interface instead. 
 
+Overriding can change the return type of a method to a subtype of the orinal one. 
+
+The subclass method that overrides that of the superclass must be declared as public as well. 
+
+- using `final` to ban inheritance
+A `final` method cannot be overrided. 
+A `final` class cannot be extended. All methods in the class are final, but not the fields. 
+
+###Casting
+
+- Casting is only available within the inheritance hierarchy. 
+- `instance of` is used to check before casting from superclass to subclass. 
+
+```
+if(x instance of SubClass){ // false if x is null
+    SubClass sub = (SubClass)x;
+}
+
+// in c++
+SubClass* sub = dynamic_cast<SubClass*>(x);
+if(sub != NULL){
+```
+
+### Abstract Classes
+- A class with at least one abstract method must be defined as an abstract class itself. 
+- But abstract classes can have common methods and fields as well.
+- Abstract methods give place to subclasses to implement them. 
+- A class can be defined as  abstract even though it has no abstract methods. (?)
+- An abstract class cannot be instantiated. 
+
+When a abstract class is extended, there are two choices: 
+
+- leave at least one abstract method undefined, and the subclass is abstract as well. 
+- implement all abstract methods in the superclass. 
+
+In C++, a class is abstract if it has at least one pure virtual function such as  `virtual void f() = 0;`
+
+### Protected Access
+use with caution in fields
+make more sense to methods
+
+protected in Java is less safe than in C++, because 
+other classes in the same package can access it. 
+
+### Summary of accessibility 
+1. `private` visible to the class only
+2. `public` visible to the world
+3. `protected` visible to the package and all subclasses
+4. (default) visible to the package
 
 
+### The Cosmic Superclass: Object
+Every class in Java extends Object.
+In Java, only premitive types (numbers, characters and boolean) are not objects. 
 
+#### Equality Testing
+testing equality between a subclass and a superclass
+two senarios: 
 
+- If a subclass can have its own notion of equality, the symmetry rules forced you to use `getClass` test - `x.equals(y)` returns true if and only if `y.equals(x)` returns true. 
+- If the notion of equality is fixed in the superclass, use the `instanceof` test and allow objects of different subclasses to be equal to one another. 
 
+The recipe for `equals` method: 
+1. the explicit parameter for the method is `Object otherObject`.
+And this will override the one of the Object class.
+2. Test whether `this` happens to be identical to otherObject.
+3. Test whether otherObject is null.
+4. Compare the class of `this` and otherObject.
+ If the sematics of `equals` can change in subclasses, use the `getClass` test.
+   If the same sematics holds for all subclasses, use the `instanceof` test. 
+5. Cast otherObject to a variable of your class type.
+6. Compare the fields. Use == for primitive types and `Object.equals` for objects. 
+7. If you redefine `equals` in a subclass, include a call to `super.equals`
 
-
-
+```
+public boolean equals(Object otherObject){
+    // 2. 
+    if(this == otherObject) return true;
+    // 3. 
+    if(otherObject == null) return false;
+    // 4. 
+    if(getClass() != otherObject.getClass()) return false;
+    // or
+    if(!(otherObject instanceof ClassName)) return false;
+    // 5.
+    ClassName other = (ClassName)otherObject;
+    // 6. 
+    return field1 == other.field1
+        && Object.equals(field2, other.field2)
+        && ...;
+}
+```
+ 
