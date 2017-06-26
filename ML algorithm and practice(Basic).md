@@ -135,8 +135,6 @@ matV = mat(vectorA,vectorB)
 dist.pdist(matV,'jaccard')
 ```
 
-还有很多距离。。
-
 ### 2.2概率论
 
 - 样本：矩阵对象
@@ -152,18 +150,18 @@ $$P(B|A)P(A) = P(A|B)P(B)$$
 - 多元统计： 联合概率分布 与 边缘概率分布
 
 - 特征相关性
-**expectation期望**$$E[X]=\sum_{i=1}^np_ix_i$$
-**variance方差**$$D=E[(X-E[X])^2]=\sum_{i=1}^np_i(x_i-E)^2$$
-**covariance协方差**$$cov(X,Y)=E[(X-E[X])(Y-E[Y])]$$
+**expectation 期望**$$E[X]=\sum_{i=1}^np_ix_i$$
+**variance 方差**$$D=E[(X-E[X])^2]=\sum_{i=1}^np_i(x_i-E)^2$$
+**covariance 协方差**$$cov(X,Y)=E[(X-E[X])(Y-E[Y])]$$
 用于衡量两个变量的总体误差。而方差是协方差的一种特殊情况，即当两个变量是相同的情况
 
-**covariance matrix协方差矩阵**$$cov(X,Y)=E[(X-E[X])(Y-E[Y])^T]$$
+**covariance matrix 协方差矩阵**$$cov(X,Y)=E[(X-E[X])(Y-E[Y])^T]$$
 
-**correlation coefficient相关系数**
+**correlation coefficient 相关系数**
 $$CC_{xy}={Cov(X,Y) \over \sqrt{D(X)} \sqrt{D(Y)}}$$
 取值范围[-1,1] -1线性负相关  1线性正相关
 
-**corelation distance相关距离**
+**corelation distance 相关距离**
 $$D_{XY}=1-CC_{XY}$$
 
 ```
@@ -186,7 +184,7 @@ $$M(X_i,X_j) = \sqrt{(X_i-X_j)^TS^{-1}(X_i-X_j)}$$
 matrix = mat(vectorA,vectorB)
 covinv = linalg.inv(cov(matrix))
 tp = vectorA-vectorB
-mditance = sqrt(dot(dot(tp,covinv),tp.T)) # ???
+mditance = sqrt(dot(dot(tp,covinv),tp.T)) 
 ```
 
 ### 2.3 线性空间变换
@@ -253,7 +251,7 @@ NLP的核心问题?
 
 文本结构化模型： 词向量空间模型、主题模型、依存句法的树表示、RDF的图表示
 
-jieba分词系统 使用CRF算法和python语言
+jieba分词系统 使用CRF算法和python
 ```
 # 返回可迭代的generator
 # 默认切分
@@ -549,6 +547,7 @@ Steps:
 ### 4.2 决策树的算法框架
 #### 1. 主函数
 递归函数，负责节点生长和结束算法
+
 - 输入需要分类的数据集和已知标签
 - 调用“计算最优特征子函数”：根据某种规则确定最优划分特征，创建特征节点
 - 调用“划分函数”：按照该特征把数据集划分为若干部分
@@ -763,6 +762,7 @@ kmeans.cluster_centers_
 User Item矩阵：行是用户列表，列是物品列表，矩阵值是用户偏好数值。
 
 用户相似度矩阵：按行归一化，一行总和为1
+
 - 一个用户的偏好是一个向量，利用聚类算法，基于用户对物品的偏好划分用户类型；
 - 用KNN邻近算法找到最邻近的用户，根据相似度权重和对物品的偏好，预测当前用户可能有偏好的物品
 - 用户甲与用户乙相似，则将用户乙购买的商品推荐给用户甲
@@ -773,6 +773,7 @@ User Item矩阵：行是用户列表，列是物品列表，矩阵值是用户�
 #### 4. Item CF 原理
 应用普遍广泛
 物品相似度矩阵：按列归一化，一列的和为1
+
 - 根据用户偏好划分物品类型（聚类算法），计算物品之间的相似度（KNN算法），找最邻近的物品，预测当前用户可能有偏好的物品
 - 物品A与物品B相似，则将物品A推荐给购买物品B的用户
 
@@ -845,6 +846,7 @@ K要事先给出，不同数据集之间没有可借鉴性
 
 ### 5.4 二分KMeans算法
 Bitseting KMeans
+
 - 将所有点作为一个簇，一分为二
 - 选择能够最大限度降低聚类代价函数（误差平方和）的簇，一分为二
 - 以此进行下去，直到簇的数目等于给定数目K
