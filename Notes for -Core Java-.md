@@ -8,7 +8,7 @@ Volumn I - Fundamentals, Ninth Edition
 before the notes: 
 From C++ to Java there are a lot of details that need to be paid attention to. And this book explains them quite clearly. 
 
-## Chapter Three: Fundamental programming structure in Java
+## Chapter Three: Fundamental programming structures in Java
 ### Data type
 
 - Integer
@@ -54,14 +54,14 @@ int---float
 long---double 
 long---float
 
-- When two values are conbined with a binary operator, both operands need to be converted. 
- - if one of the two operands is `double` or `float` or `long`, the other one will be converted into the same type. 
- - Otherwise, both will be converted into an `int` 
+- When two values are combined with a binary operator, both operands need to be converted. 
+ - If one of the two operands is `double` or `float` or `long`, the other one will be converted into the same type. 
+ - Otherwise, both will be converted into an `int`. 
 
 ### Casts
-same as C++ 
+the same as C++ 
 `int x = (int)9.9;`
-boolean type can not be cast into any numeric type. 
+Boolean type can not be cast into any numeric type. 
 an alternative to conversion:  `b ? 1 : 0`
 
 ### String
@@ -71,15 +71,15 @@ an alternative to conversion:  `b ? 1 : 0`
 - methods
  - `String substring(int beginIndex, int endIndex)` get the range of [beginIndex, endIndex) 
 `String substring(int beginIndex)`
-  - concatenation using `+`
+  - Concatenation using `+`
  When a string object is concatenated with a value that is not a string, it will be converted into a string, since every Java object can be converted into a string. 
- - testing for equality: `str.equals(another_string)` 
+ - Testing for equality: `str.equals(another_string)` 
 Even `"hello".equals(str)` is valid. 
 `str.equalsIgnoreCase()`
-The == operator is only used to determine whether two strings are stored in the same locaion. 
+The == operator is only used to determine whether two strings are stored in the same location. 
 To test whether a string is `null`, use `if(str==null)`.
 **Attention**: `null` is different from empty string "" with the length of zero. 
- - the `str.length()` method yields the number of code units(char) required to make up the string object. 
+ - The `str.length()` method yields the number of code units(char) required to make up the string object. 
 To get the true length - the number of code pointers, use `str.codePointCount(0,str.lenth())`
  - `int codePointAt(int index)` return the code point that starts or ends at certian location. 
 `str.charAt(n)` return the code unit at position n which begin at 0, but it is too low-level. Do not use it. 
@@ -98,7 +98,7 @@ returns the start of the last substring equal to the string str or the code poin
 returns a new String by replacing all substring `oldString` with `newString`. 
  - `String toLowerCase()`
 `String toUpperCase()`
- - `String trim()` eliminate all leading and trailing spaces 
+ - `String trim()` eliminates all leading and trailing spaces 
   
 - Building Strings 
 use `StringBuilder` class
