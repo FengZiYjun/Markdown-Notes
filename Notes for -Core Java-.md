@@ -296,6 +296,7 @@ Recommendation: make all instance field private, except for public final fields.
 
 ### Constructors
 A constructor 
+
 - has the same name as the class
 - can take any number of parameters
 - has no return value
@@ -627,3 +628,81 @@ For a multimensional array, use `Array.deepToString(a)`
 Adding a *toString* to a user-defined class is strongly recommended. 
 
 ### Generic Array List 
+ArrayList is a **generic** class with a type parameter in angle brackets. 
+ArrayList is similar to the C++ vector template. 
+
+- construction
+`ArrayList<Type> al = new ArrayList<Type>();`
+In Java 7, "diamond syntax" can omit the type parameter on the right.
+`ArrayList<Type> al = new ArrayList<>();`
+Or with initialized capacity:
+`ArrayList<Type> al = new ArrayList<>(100);`
+
+- operations
+`boolean add(Type obj)` append, always return true.
+`int size()` 
+`void ensureCapacity(int capacity);` allocate an array with desired storage capacity
+
+- accessing elements
+No [] syntax can be used. 
+`Type get(int index)`
+`void set(int index, Type obj)`
+`Type remove(int index)` shifts down all element above and returns the removed element
+
+- warning 
+ArrayList has a "raw" version which takes no type paramters. 
+The "raw" one cannot be assigned or cast into a typed one.
+The compliler would not check if you pass a typed ArrayList into a "raw" ArrayList and this is dangerous. 
+
+### Object Wrappers and Autoboxing 
+All primitive types have class counterparts. 
+They are called *wrappers*：
+Integer, Long, Float, Double, Short, Byte, Character, Void, Boolean
+*Wrapper* classes are **immutable** and **final**. 
+A typical usage is to construct an ArrayList of integer. 
+Angle brackets do not recieve primitive types. 
+use `ArrayList<Interger> list = new ArrayList<>()` instead. 
+
+Autoboxing
+`list.add(3)` does autoboxing to be `list.add(Integer.valueOf(3))`
+In most cases, the primitive types and their wrappers are likely to be the same except for their identity. 
+Wrappers are a convenient place to put some basic methods. 
+The word "boxing" is taken from C#. 
+
+`int Integer.intValue()` return as an int
+`static String Integer.toString()`
+`static int Integer.parseInt(String s, int radix)` returns the integer contained in a string. The integer should be in the given base or default 10 base. 
+`static Integer Integer.valueOf(String s, int radix)` similar
+
+### Varargs Methods: methods with a variable number of parameters
+`public void f(int... list){ }`
+The ellipsis "..." is part of the code, which denotes the method receives an arbitary number of objects, and is exactly the same as `Object[]`. So `for(int x: list)` can be used for iteration. 
+
+To call the method, use `f(1,2,3);`.
+
+### Enumeration classes
+Enumeration is actually a class with a fixed number of instances. 
+`public enum MyEnum{SMALL, MEDIAN, LARGE };`
+
+### Reflection 
+The Reflection Library provides tools for manipulating Java codes dynamically. A program that can analyze the capabilities of classes is called *reflective*. 
+It is a powerful and complex mechenism. 
+
+#### The *class* class 
+The Java runtime system maintains *runtime type identification* on all objects, which keeps track on the class which each object belongs to.
+
+- Get the class infomation from an instance 
+`class cl = x.getClass();`
+- `getName()` method is commonly used, but it works strange for array types (historical reason).
+- To obtain a class object by its name 
+`Class cl = Class.forName("java.util.Date");`
+Or simply
+`Class cl = Date.class;`
+
+- You can use "==" to compare class objects. 
+- To create a new instance of the class, use `x.getClass().newInstance();`, which non-parameter constructor will be invoked. (cannot pass any parameters)
+
+#### A primer on Catching Exceptions 
+
+
+
