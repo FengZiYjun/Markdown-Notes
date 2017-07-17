@@ -570,6 +570,7 @@ two senarios:
 - If the notion of equality is fixed in the superclass, use the `instanceof` test and allow objects of different subclasses to be equal to one another. 
 
 The recipe for `equals` method: 
+
 1. the explicit parameter for the method is `Object otherObject`.
 And this will override the one of the Object class.
 2. Test whether `this` happens to be identical to otherObject.
@@ -599,4 +600,30 @@ public boolean equals(Object otherObject){
         && ...;
 }
 ```
- 
+
+#### The *hashcode* method
+The *hashcode* method is defined in the Object class. 
+
+- For String class, the hash code is derived from their contents. Therefore two string variables with the same contents will have the same hash code. 
+- For other classes, the hash code is derived from the memory address. 
+
+If *equals* method is redefined, *hashcode* method needs to be redefined as well. And they must be compatible. 
+If two variables are equals under the *equals* method, they must have the same value of hash code. 
+
+Some relative methods: 
+`int Object.hashcode()` returns the hash code for this object (returns 0 for null). 
+`int Object.hash(Object...Object)` returns a combined hash code.
+`itn Array.hashcode(type[] a)` computes the hash code of array a with different components.
+
+#### The *toString* method
+A common format for *toString* method: 
+`getClass().getName()` followed by field values in square brackets. For derived classes, add square brackets after. 
+
+The *toString* method is invoked automatically when contatenating a string with an object by "+" operator ,or printing an object by `System.out.println()`.
+
+Specifically, to print an array, use `Array.toString(a)` instead. 
+For a multimensional array, use `Array.deepToString(a)`
+
+Adding a *toString* to a user-defined class is strongly recommended. 
+
+### Generic Array List 
