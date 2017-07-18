@@ -3,7 +3,9 @@
 标签（空格分隔）： programming_language
 
 ---
+Author: Cay S. Horstmann
 Volumn I - Fundamentals, Ninth Edition 
+
 
 before the notes: 
 From C++ to Java there are a lot of details that need to be paid attention to. And this book explains them quite clearly. 
@@ -687,6 +689,7 @@ Enumeration is actually a class with a fixed number of instances.
 ### Reflection 
 The Reflection Library provides tools for manipulating Java codes dynamically. A program that can analyze the capabilities of classes is called *reflective*. 
 It is a powerful and complex mechanism. 
+However, it is useful in system programming or toolkit design, not in applications.
 
 #### The *class* class 
 The Java runtime system maintains *runtime type identification* on all objects, which keeps track on the class which each object belongs to.
@@ -720,7 +723,71 @@ The three classes `Field`, `Method`, `Constructor` in Java.lang.reflect package 
 `getDeclaredFields`, `getDeclaredMethods`, `getDeclaredConstructors` return all, not just public ones.
 
 
+#### Using Reflecton for analyzing objects at runtime
+access field information by the `get` method of the `Field` class
+
+```
+MyClass mc = new MyClass();
+Class cl = new mc.getClass();
+Field f = cl.getDeclaredField("field_name");
+Object obj = f.get(mc);
+// returns an object whose value is the current value of the field of mc
+```
+This method can only be used to access accessible fields. If the field is private, you can change its accessibility by `setAccessible` method on a `Field`, `Method`, `Constructor` object. 
+`f.setAccessible(true);`
+
+As for number objects, `get()` does autoboxing. 
+
+Also, we can set value by `set` method 
+`void Field.set(Object obj, Object newValue);`
+
+> customize your own generic toString method used for all objects
+
+#### Using reflectio to write Generic Array Code
+Consider we are coding the implementation of the `copyOf` method of a geneic array that holds elements of any type.
+Any object can be converted into `Object` class, but it would not help because an array of elements of `Object` class would not be cast back into the same type of array after the memory reallocation. 
+Therefore we would not cast an instance of `MyClass[]` into `Object[]` class. Rather, we treat the instance of `MyClass[]` as an Object and create a new array using `reflect.Array.newInstance()` based on this Object.
+```
+public static Object copyOf(Object obj, int newLength){
+    Class cl = obj.getClass();
+    if(!cl.isArray()) return null;
+    Class componentType = cl.getComponentType();
+    int length = Array.getLength(cl);
+    Object newArray = Array.newInstance(componentType, newLength);
+    System.arraycopy(obj, 0, newArray, 0, Math.min(length, newLength));
+    return newArray;
+}
+
+int[] a = {1,2,3,4};
+a = (int[])copyOf(a, 10);
+```
+
+#### Invoking arbitrary methods
+Java has no method pointer because the designer thought it is dangerous and Java interface is an alternative. 
+Howeverm the reflection mechanism allows you to call arbitrary methods. Yet In a mush slower way. 
+
+- obtain a `Method` object
+`Method getMethod(String name, Class... parameterTypes)`
+`Method m = x.class.getMethod("method_name",int.class);`
+- the method class has an `invoke` method
+`Object invoke(Object obj, Object... args)`
+The first parameter is the implicit parameter, and the rest are explicit.
+For static methods, the first parameter "obj" should be null. 
+ 
+Suggestion: use method class only when absolutely necessary. 
+
+### Design Hints for Inheritance 
+1. place common operations and fields in the superclass.
+2. Do not use protected fields. 
+3. Use inheritance to model the "is-a" relationship.
+4. Do not use inheritance unless all inherited methods make sense. 
+5. Do not change the expected behavior when overriding a method. 
+6. Use polymorphism, not type information. 
+7. Do not overuse reflection. 
 
 
+## Chapter Six: Interfacces and Inner Classes 
+Two advanced techniques: 
 
-
+- *interface*  describe what classes should do, regardless of how they should do it.
+- *inner classes* help design collections of cooperating classes. 
