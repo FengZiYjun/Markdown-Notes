@@ -686,7 +686,7 @@ Enumeration is actually a class with a fixed number of instances.
 
 ### Reflection 
 The Reflection Library provides tools for manipulating Java codes dynamically. A program that can analyze the capabilities of classes is called *reflective*. 
-It is a powerful and complex mechenism. 
+It is a powerful and complex mechanism. 
 
 #### The *class* class 
 The Java runtime system maintains *runtime type identification* on all objects, which keeps track on the class which each object belongs to.
@@ -703,6 +703,24 @@ Or simply
 - To create a new instance of the class, use `x.getClass().newInstance();`, which non-parameter constructor will be invoked. (cannot pass any parameters)
 
 #### A primer on Catching Exceptions 
+
+- Checked Exception: The compiler checks whether you provide a handler 
+- Unchecked Exception: Programmers should avoid these mistakes rather than coding handlers.
+
+Using "try-catch" statement to catch exceptions.
+The compiler will tell you which method need to supply a handler. 
+
+#### Using refection 
+The three classes `Field`, `Method`, `Constructor` in Java.lang.reflect package describe three aspects of the class respectively. 
+`getName` returns a name
+`getModifier` returns an integer
+`Modifier.isPublic/isPrivate/...` analyze the integer, return boolean
+`Field.getType`
+`getFields`, `getMethods`, `getConstructors` return arrays of the *public* fields, methods and constructors. 
+`getDeclaredFields`, `getDeclaredMethods`, `getDeclaredConstructors` return all, not just public ones.
+
+
+
 
 
 
