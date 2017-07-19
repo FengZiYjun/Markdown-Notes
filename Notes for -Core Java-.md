@@ -791,3 +791,76 @@ Two advanced techniques:
 
 - *interface*  describe what classes should do, regardless of how they should do it.
 - *inner classes* help design collections of cooperating classes. 
+
+
+### Interfaces 
+A interface is a set of requirements for the classes that want to conform to the interface. 
+For instance, if the sort method of Array class needs to be used to sort an array of objects, these objects must belong to classes that implement the Comparable interface which has a method called compareTo. 
+
+
+- define an interface: 
+1. An interface can have methods and constants. 
+2. All methods in the interface are automatically `public`. 
+3. All fields in the interface are automatically `public static final`.
+3. An interface never has instance fields and never implements any method. (These are the jobs of the classes that implement the interface)
+```
+public interface MyInterface{
+    void f(); # not necessarily public
+    double pi = 3.14; # auto public static final
+}
+```
+- use an interface: 
+1. a class implement the interface by keyword `implements`.
+2. supply definitions for all methods in the interface. 
+
+> in Java SE 5.0, an interface can be generic.
+`public interface MyInterface<T>`
+`class MyClass implements MyInterface<MyType>`
+
+#### Properties of Interfaces
+- An interface is not a class. You cannot `new` an interface. 
+- But you can declare interface variables. 
+`MyInterface x;`
+An interface variable must refer to an object of a class that implements this interface. 
+- `instanceof` can also be used to check whether an object implements an interface. 
+`if(obj instanceof MyInterface)`
+- An interface can `extends` another interface. This will build an hierachy from generlization to specialization. 
+`public interface YourInter extends MyInterface{`
+- A class can implement any number of interfaces (but only one superclass). 
+`class MyClass implements MyInter, YourInter{`
+
+The introduction of interfaces in Java aims to replace multiple inheritance. 
+
+### Object Cloning 
+
+The `clone` method is declared `protected` in the `Object` class so you cannot simply call obj.clone().
+
+When you decide to clone an object, decide: 
+1. The default clone method is good enough. 
+2. The default clone method can be patched up by calling clone on the mutable subobjects to avoid shallow copy. 
+3. cancel the cloning. 
+
+To choose either the first or the second choice, a class must: 
+1. implement the `Cloneable` interface.
+2. redefine the `clone` method with publc modifier. 
+The `Cloneable` interface has nothing to do with the `clone` method which is inherited from `Object` class. It just serves as a tag to inform programmers. ("marker interface") But this is acutally a bad use. 
+
+```
+class MyClass implements Cloneable{
+    public MyClass clone() throws CloneNotSupportedException
+    {
+        MyClass myClone = (MyClass)super.clone();
+        // deep copy if necessary
+        myClone.fields = (Type)fiels.clone();
+        return myClone;
+    }
+}
+```
+Specially, all array types have a `public` clone method instead of protected.
+
+Cloning is less common than you think. 
+"Object serialization" is an alternative for cloning objects. 
+
+###Callbacks
+
+
