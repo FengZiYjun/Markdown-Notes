@@ -862,5 +862,82 @@ Cloning is less common than you think.
 "Object serialization" is an alternative for cloning objects. 
 
 ###Callbacks
+The callback pattern specifies the actions that should occur whenever a particular event happens. 
 
+For example, a timer wants to invoke an event after a ccertain time interval. The event is a class. The invoker is an interface with a method that takes the event as a parameter. And the listener implements this interface and supply the detail to invoke the event. Finally, the listener is passed to the timer as a parameter. 
+Whenever you would use a function pointer in C++, you should use an interface in Java. 
+
+###Inner Class
+An inner class is a class that is defined inside another class. 
+
+- It can access data of the outer class, including the private ones. 
+- It can be hidden from other classes in the same package. 
+- Anonymous inner classes are handy to define callbacks without lots of codes.
+
+> In C++, nested classes provide two benefits: name control (call the inner class with the name of outer class) & access control (classes in the private part are hidden from outside). 
+
+####Access Object State
+- An inner class method can access both its own data fields and those of the outer object creating it. 
+- Every inner class has an invisible reference to the outer class object. 
+- Only inner classes can be private. Then only outer class methods would be able to construct inner class objects. 
+
+
+#### Special syntax rules
+
+- The outer class reference is denoted by `OuterClass.this`.
+To access the fields from the inner class, use `OuterClass.this.field`.
+- To create an inner object by an outer object
+`InnerClass m = OuterClass.new InnerClass();`
+- refer to an inner class as `OuterClass.InnerClass`. 
+
+#### usefulness, necessity and security 
+The inner class is a phenomenon of the compiler. 
+The compiler translates the inner classes into nomal classes by concatenating the name of the outer class before them. 
+JVM knows nothing about inner classes. 
+
+#### Local Inner Classes
+An inner class inside a method is called a local inner class. 
+Local classes are never declared with an access modifier. 
+Their scope is restricted to the block in which they are declared. 
+One great advantage: it is totally hidden from the outside. No one except the method has any idea of the inner class. 
+
+#### Accessing final variables 
+Local inner classes can access local final variables. 
+The inner class stores a copy of the local final varibles of the outer class when being constructed. So it is possible that the local final variable will be called by an object of the inner class even after the method ends. 
+
+#### Anonymous Inner Classses 
+Without names.
+```
+new SuperType(construction parameters){
+        //inner class methods and data
+    }
+```
+Noted that `SuperType` can be an interface or a super class. 
+
+- Anonymous inner classes have no constructors. 
+- Advantage: code-saving
+
+#### Static Inner Class
+A inner class that is `static` does not have a reference to the outer class. 
+Only inner classes can be declared static. 
+Use a static inner class whenever the inner class does not need to access an outer class object. 
+Inner classes that are declared inside an interface are automatically static and public. 
+
+### Proxies 
+use proxy when creating new classes that implements a set of interfaces that I do not know which to choose at compile time
+
+A *invocation handler* is an object of any class that implements the `InvocationHandler` interface which has a single method `invoke`. 
+
+To create a proxy object, use the `newProxyInstance` method of the `Proxy` class. 
+We define different handlers for proxies with different purposes. 
+
+- All proxy classes extend the class `Proxy`.
+- A proxy class has only one instance field - the invocation handler, which is defined in the `Proxy` superclass.
+- All proxy classes override the toString, equals nad hashCode methods of the Object class. 
+- The names of proxy classes are not defined. 
+- A proxy class is always public and final. 
+
+Proxy is an advanced technique for tool builders, not for application programmers. 
+
+## Chapter Seven: Graphic Programming 
 
